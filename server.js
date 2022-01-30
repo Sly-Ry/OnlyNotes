@@ -2,8 +2,8 @@ const express = require('express');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
-const apiRoutes = require('./Develop/routes/apiRoutes');
-const htmlRoutes = require('./Develop/routes/htmlRoutes');
+// const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
 
 // Parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.static('/public'));
 
 // Tells the server that any time a client navigates to <ourhost>/api, the app will use the router we set up in apiRoutes. 
-app.use('/api', apiRoutes);
+// app.use('/api', apiRoutes);
 // Router serves back our HTML routes.
 app.use('/', htmlRoutes);
 
