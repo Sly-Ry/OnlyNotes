@@ -5,10 +5,10 @@ const {
     createNewNote, 
     validateNote
 } = require('../../lib/index');
-const { db } = require('../../db/db');
+const { notes } = require('../../db/db.json');
 
 // The get() method requires two arguments. 
-router.get('/db', (req, res) => {
+router.get('/notes', (req, res) => {
     let results = notes;
     if (req.query) {
         results = filterByQuery(req.query, results);
@@ -16,8 +16,8 @@ router.get('/db', (req, res) => {
     res.json(results);
 });
 
-// A param route must come after the other GET route.
-router.get('/db/:id', (req, res) => {
+router.get('/notes/:id', (req, res) => {
+
     const result = findById(req.params.id, notes);
     if(result) {
         res.json(result);
@@ -28,20 +28,27 @@ router.get('/db/:id', (req, res) => {
 });
 
 // A route that listens for POST request/ 
-router.post('/db', (req, res) => {
-
+router.post('/notes', (req, res) => {
     req.body.id = notes.length.toString();
 
-    // add animal to json file and notes array in this function
-    if (!validateAnimal(req.body)) {
-        res.status(400).send('The animal is not properly formatted.');
+    if (!validateNote(req.body)) {
+        res.status(400).send('The note is not properly formatted.');
     }
     else {
-        const animal = createNewAnimal(req.body, notes);
-        res.json(animal);
+        const note = createNewNote(req.body, note);
+        res.json(note);
     }
 });
 
-module.exports = router;
+// router.delete('/notes/:id', (req, res) => {
+//     const result = req.params.id;
+
+//     if(result) {
+//         res.json(result);
+//     }
+//     else {
+//         res.send(404);
+//     }
+// });
 
 module.exports = router;

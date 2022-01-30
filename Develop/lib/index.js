@@ -11,7 +11,9 @@ function filterByQuery(query, notesArray) {
     if(query.text) {
         filteredResults = filteredResults.filter(note => note.text === query.text);
     }
+    return filteredResults;
 };
+
 // Find notes by their id
 function findById(id, notesArray) {
     const results = notesArray.filter(note => note.id === id)[0];
@@ -38,4 +40,11 @@ function validateNote(note) {
         return false;
     }
     return true;
+};
+
+module.exports = {
+    filterByQuery,
+    findById,
+    createNewNote,
+    validateNote
 };
