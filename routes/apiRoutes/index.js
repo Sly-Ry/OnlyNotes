@@ -4,7 +4,7 @@ const {
     createNewNote, 
     validateNote
 } = require('../../lib/index');
-const notes = require('../../db/db.json');
+const { notes } = require('../../db/db.json');
 
 // The get() method requires two arguments. 
 router.get('/notes', (req, res) => {
@@ -24,13 +24,16 @@ router.get('/notes/:id', (req, res) => {
 
 // A route that listens for POST request/ 
 router.post('/notes', (req, res) => {
-    req.body.id = notes;
-    console.log(req.body.id);
-    
+    req.body.id = note.length.toString();
 
-    const note = createNewNote(req.body, notes);
-    return res.json(note);
-
+    // add animal to json file and note array in this function
+    if (!validateAnimal(req.body)) {
+        res.status(400).send('The note is not properly formatted.');
+    }
+    else {
+        const animal = createNewAnimal(req.body, note);
+        res.json(animal);
+    }
 });
 
 // router.delete('/notes/:id', (req, res) => {
